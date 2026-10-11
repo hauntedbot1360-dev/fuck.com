@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Font CDN Test</title>
+
+<!-- তোমার Worker এর CSS -->
+<link rel="stylesheet" href="https://withered-voice-1539.apnike86.workers.dev/css/fonts.css">
+
+<style>
+  body { font-family: 'Dosis', sans-serif; max-width: 640px; margin: 30px auto; padding: 0 16px; line-height: 1.6; }
+  h1 { font-family: 'Bungee', sans-serif; font-size: 28px; }
+  .box { border: 1px solid #ccc; border-radius: 10px; padding: 12px 16px; margin: 14px 0; }
+  .ok { color: #0a8a2a; font-weight: bold; }
+  .no { color: #c0262d; font-weight: bold; }
+</style>
+</head>
+<body>
+  <h1>Font Test</h1>
+
+  <div class="box">
+    <p>Dosis: The quick brown fox jumps over the lazy dog. 0123456789</p>
+    <p style="font-family:'Bungee',sans-serif">Bungee: The quick brown fox</p>
+  </div>
+
+  <div class="box">
+    <div>Dosis: <span id="d">চেক হচ্ছে...</span></div>
+    <div>Bungee: <span id="b">চেক হচ্ছে...</span></div>
+  </div>
+
+  <p>এই পেজ খোলার পর Admin panel এ গিয়ে রিফ্রেশ দাও:<br>
+  <a href="https://withered-voice-1539.apnike86.workers.dev/admin">/admin</a></p>
+
+<script>
+  Promise.all([
+    document.fonts.load("20px Dosis"),
+    document.fonts.load("20px Bungee")
+  ]).then(function () {
+    function show(id, name) {
+      var el = document.getElementById(id);
+      var ok = document.fonts.check("20px " + name);
+      el.textContent = ok ? "লোড হয়েছে ✔" : "লোড হয়নি ✘";
+      el.className = ok ? "ok" : "no";
+    }
+    show("d", "Dosis");
+    show("b", "Bungee");
+  });
+</script>
+</body>
+</html>
